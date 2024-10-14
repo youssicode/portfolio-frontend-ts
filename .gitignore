@@ -1,0 +1,35 @@
+node_modules
+
+# production
+build
+dist
+dist-ssr
+
+# Logs
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dotenv and similar local-only files
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Misc
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.pem

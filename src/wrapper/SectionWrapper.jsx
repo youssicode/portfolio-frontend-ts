@@ -1,0 +1,44 @@
+import React from "react"
+import SocialMedia from "../components/SocialMedia"
+import NavigationDots from "../components/NavigationDots"
+
+const SectionWrapper = (Component, sectionId, classNames) =>
+  function HOC() {
+    const headerBg = {
+      backgroundImage: `url('/src/assets/bgIMG.png')`,
+      backgroundSize: "cover",
+      backgroundPosition: "left",
+      backgroundRepeat: "repeat",
+    }
+
+    return (
+      <div
+        id={sectionId}
+        style={
+          sectionId === "home" || sectionId === "testimonials" ? headerBg : {}
+        }
+        className={`${classNames} relative w-full min-h-screen flex`}
+      >
+        <div className="container mx-auto flex">
+          <SocialMedia />
+
+          {/* USE grow */}
+          <div className="flex-1 w-64 flex flex-col justify-center items-center pt-24 pb-6 min-[450px]:pb-24 px-4 min-[450px]:px-8">
+            <Component />
+
+            <div className="w-full mt-12 lg:mt-20 flex flex-col justify-end items-end">
+              <p className="uppercase text-black text-[0.8rem] 2xl:text-base text-left">
+                @2024 EL-HROUZI
+              </p>
+              <p className="uppercase text-black text-[0.8rem] 2xl:text-base text-left">
+                All rights reserved
+              </p>
+            </div>
+          </div>
+          <NavigationDots active={sectionId} />
+        </div>
+      </div>
+    )
+  }
+
+export default SectionWrapper
