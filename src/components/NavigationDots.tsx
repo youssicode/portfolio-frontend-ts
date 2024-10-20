@@ -2,7 +2,10 @@
 import React, { Fragment } from "react"
 import { Tooltip } from "react-tooltip"
 
-const NavigationDots = (prop) => {
+interface NavigationDotsProps {
+  active: string
+}
+const NavigationDots = ({ active }: NavigationDotsProps) => {
   return (
     <div className="hidden sm:flex justify-center items-center flex-col p-4 ">
       {["home", "about", "work", "skills", "testimonials", "contact"].map(
@@ -11,7 +14,7 @@ const NavigationDots = (prop) => {
             <a
               href={`#${item}`}
               className="size-2.5 rounded-full bg-mediumGray m-2 transition ease-in-out duration-200 hover:bg-secondary 2xl:size-3"
-              style={prop.active === item ? { backgroundColor: "#313BAC" } : {}}
+              style={active === item ? { backgroundColor: "#313BAC" } : {}}
               data-tooltip-id={item + "-tooltip"}
               data-tooltip-content={item}
               data-tooltip-place="right"

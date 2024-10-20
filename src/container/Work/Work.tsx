@@ -25,7 +25,7 @@ function Work() {
 
   useEffect(() => {
     const filteredItems = works.filter((item) =>
-      item.tags.includes(activeFilter)
+      item.tags?.includes(activeFilter)
     )
     setFiltredWorks(filteredItems.length > 0 ? filteredItems : works)
   }, [activeFilter])
@@ -48,7 +48,7 @@ function Work() {
     <>
       <SectionHeading text1="my creative" text2="portfolio" />
 
-      <Filter activeFilter={activeFilter} setActiveFilter={handleWorksFilter} />
+      <Filter activeFilter={activeFilter} handleFilter={handleWorksFilter} />
 
       <div className="min-h-[550px] w-full">
         <motion.div

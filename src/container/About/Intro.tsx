@@ -1,7 +1,12 @@
 import React from "react"
 import { FaHandPaper, FaLink } from "react-icons/fa"
 
-const Intro = ({ heading, text, image }) => {
+interface IntroProps {
+  heading: string
+  text: string
+  image: string
+}
+const Intro = ({ heading, text, image }: IntroProps) => {
   // Create a function to convert the HTML string to JSX
   const createMarkup = (htmlString) => {
     return { __html: htmlString }

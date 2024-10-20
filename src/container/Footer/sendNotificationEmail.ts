@@ -1,27 +1,37 @@
-import emailjs from "@emailjs/browser"
+import emailjs, { EmailJSResponseStatus } from "@emailjs/browser"
 
-const sendNotificationEmail = (contactData) => {
+interface ContactDataType {
+  name: string
+  email: string
+  message: string
+}
+
+const sendNotificationEmail = async (
+  contactData: ContactDataType
+): Promise<EmailJSResponseStatus> => {
+  const { name, email, message } = contactData
+
   const templateData = {
-    from_name: contactData.name,
-    from_email: contactData.email,
-    message: contactData.message,
+    from_name: name,
+    from_email: email,
+    message,
   }
 
-  emailjs
-    .send(
+  try {
+    const response = await emailjs.send(
       "service_0vxw8au",
       "PortfolioContact_d16pcv9",
       templateData,
       "JDGI8mjXL1lOtTMEA"
     )
-    .then((response) => {
-      console.log("Email sent successfully:", response)
-      // Handle success (e.g., show a success message to the user)
-    })
-    .catch((error) => {
-      console.error("Error sending email:", error)
-      // Handle error (e.g., show an error message to the user)
-    })
+
+    // TODO: Send success & error status to the backend (to store in the same user's entry)
+    console.log("Email sent successfully:", response)
+    return response.status
+  } catch (error) {
+    console.error("Error sending email:", error)
+    throw error
+  }
 }
 
 export default sendNotificationEmail

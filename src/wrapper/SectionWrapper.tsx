@@ -2,7 +2,14 @@ import React from "react"
 import SocialMedia from "../components/SocialMedia"
 import NavigationDots from "../components/NavigationDots"
 
-const SectionWrapper = (Component, sectionId, classNames) =>
+type SectionWrapperType = (
+  Component: React.ComponentType<any>,
+  sectionId: string,
+  classNames: string
+) => () => JSX.Element
+
+// Define a Higher Order Component as a wrapper for a section
+const SectionWrapper: SectionWrapperType = (Component, sectionId, classNames) =>
   function HOC() {
     const headerBg = {
       backgroundImage: `url('/src/assets/bgIMG.png')`,

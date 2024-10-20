@@ -2,8 +2,8 @@ import React from "react"
 import { TypeAnimation } from "react-type-animation"
 
 const ProfileText = () => {
-  const firstParagraph = "front-end developer"
-  const secondParagraph = "Meta-certified"
+  const firstParagraph: string = "front-end developer"
+  const secondParagraph: string = "Meta-certified"
 
   return (
     <TypeAnimation

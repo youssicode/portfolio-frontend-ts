@@ -2,8 +2,15 @@ import React, { useEffect, useRef } from "react"
 import { motion } from "framer-motion"
 import { HiX } from "react-icons/hi"
 
+interface WorkImagePreviewProps {
+  closeModal: () => void
+  imageSrc: string
+}
 //* Display a preview view of the work's image
-const WorkImagePreview = ({ closeModal, imageSrc }) => {
+const WorkImagePreview: React.FC<WorkImagePreviewProps> = ({
+  closeModal,
+  imageSrc,
+}) => {
   const imgRef = useRef(null)
 
   // Prevent scrolling when WorkImagePreview is displayed
