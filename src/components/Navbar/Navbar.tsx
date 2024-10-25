@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from "react"
 import { HiMenuAlt4, HiX } from "react-icons/hi"
 import { motion } from "framer-motion"
@@ -6,7 +5,7 @@ import images from "../../constants/images"
 import DownloadCVButton from "../DownloadCVButton"
 
 const Navbar = () => {
-  const [toggle, setToggle] = useState(false)
+  const [toggle, setToggle] = useState<boolean>(false)
   const menuBg = { backgroundImage: `url('/src/assets/bgWhite.png')` }
   return (
     <nav className="w-full p-4 bg-white/25 backdrop-blur-sm shadow-navShadow fixed z-50">

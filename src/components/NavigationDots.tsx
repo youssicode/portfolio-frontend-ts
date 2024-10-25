@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { Fragment } from "react"
 import { Tooltip } from "react-tooltip"
 
