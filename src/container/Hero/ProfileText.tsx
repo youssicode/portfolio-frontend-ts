@@ -1,13 +1,12 @@
 import React from "react"
 import { TypeAnimation } from "react-type-animation"
+import { firstDefinition, secondDefinition } from "@/constants/constants"
 
 const ProfileText = () => {
-  const firstParagraph: string = "front-end developer"
-  const secondParagraph: string = "Meta-certified"
 
   return (
     <TypeAnimation
-      sequence={[firstParagraph, 1200, secondParagraph, 1200]}
+      sequence={[firstDefinition, 1200, secondDefinition, 1200]}
       wrapper="span"
       cursor={true}
       preRenderFirstString={true}

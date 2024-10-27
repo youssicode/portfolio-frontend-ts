@@ -5,14 +5,15 @@ import { SectionWrapper, MotionWrapper } from "../../wrapper"
 import { urlFor, client } from "../../client"
 import Button from "./Button"
 
-let move = {}
 const Testimonial = () => {
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const [currentIndex, setCurrentIndex] = useState<number>(0)
   const [testimonials, setTestimonials] = useState([])
 
   const QUERY = '*[_type == "testimonials"]'
   useEffect(() => {
     client.fetch(QUERY).then((data) => {
+      console.log(data);
+
       setTestimonials(data)
     })
   }, [])

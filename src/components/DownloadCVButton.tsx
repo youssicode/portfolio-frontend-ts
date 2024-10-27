@@ -2,7 +2,7 @@ import React from "react"
 import { FiDownload } from "react-icons/fi"
 
 const DownloadCVButton = () => {
-  const cvUrl = "/documents/el-hrouzi-cv.pdf"
+  const cvUrl: string = "/documents/el-hrouzi-cv.pdf"
 
   return (
     <a

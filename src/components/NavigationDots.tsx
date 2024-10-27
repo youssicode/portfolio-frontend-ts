@@ -1,13 +1,14 @@
+import { navLinks } from "@/constants/constants"
 import React, { Fragment } from "react"
 import { Tooltip } from "react-tooltip"
 
-interface NavigationDotsProps {
+type NavigationDotsProps = {
   active: string
 }
 const NavigationDots = ({ active }: NavigationDotsProps) => {
   return (
     <div className="hidden sm:flex justify-center items-center flex-col p-4 ">
-      {["home", "about", "work", "skills", "testimonials", "contact"].map(
+      {navLinks.map(
         (item) => (
           <Fragment key={item}>
             <a

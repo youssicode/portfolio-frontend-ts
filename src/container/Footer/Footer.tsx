@@ -1,21 +1,29 @@
 import React, { useState } from "react"
 import * as Yup from "yup"
-import { client } from "../../client"
-import { SectionWrapper, MotionWrapper } from "../../wrapper"
-import images from "../../constants/images"
-import SectionHeading from "../../components/SectionHeading"
+import { client } from "@/client"
+import { SectionWrapper, MotionWrapper } from "@/wrapper"
+import images from "@/constants/images"
+import SectionHeading from "@/components/SectionHeading"
 import { ErrorMsg } from "./ErrorMsg"
 import sendNotificationEmail from "./sendNotificationEmail"
 
 const Footer = () => {
-  const [formData, setFormData] = useState({
+  type formDataTypes = {
+    userName: string
+    email: string
+    message: string
+  }
+  type formErrorsTypes = {
+    [key: string]: string
+  }
+  const [formData, setFormData] = useState<formDataTypes>({
     userName: "",
     email: "",
     message: "",
   })
-  const [loading, setLoading] = useState(false)
-  const [isFormSubmitted, setIsFormSubmitted] = useState(false)
-  const [formErrors, setFormErrors] = useState({})
+  const [loading, setLoading] = useState<boolean>(false)
+  const [isFormSubmitted, setIsFormSubmitted] = useState<boolean>(false)
+  const [formErrors, setFormErrors] = useState<formErrorsTypes>({})
 
   const { userName, email, message } = formData
 
@@ -27,8 +35,8 @@ const Footer = () => {
     message: Yup.string().required("Message is required"),
   })
 
-  const handleChangeInput = (e) => {
-    const { name, value } = e.target
+  const handleChangeInput: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void = (e) => {
+    const { name, value }: { name: string, value: string } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
     setFormErrors((prev) => ({ ...prev, [name]: "" }))
   }
@@ -51,8 +59,10 @@ const Footer = () => {
       sendNotificationEmail(contact)
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
-        const errors = err.inner.reduce((acc, error) => {
-          acc[error.path] = error.message
+        const errors = err.inner.reduce((acc: formErrorsTypes, error) => {
+          if (error.path !== undefined) {
+            acc[error.path] = error.message;
+          }
           return acc
         }, {})
         setFormErrors(errors)

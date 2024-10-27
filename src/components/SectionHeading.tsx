@@ -1,6 +1,6 @@
 import React from "react"
 
-interface SectionHeadingProps {
+type SectionHeadingProps = {
   text1: string
   text2: string
 }

@@ -1,26 +1,130 @@
 import React, { useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import { client, urlFor } from "../../client"
-import { SectionWrapper, MotionWrapper } from "../../wrapper"
+import { client, urlFor } from "@/client"
+import { SectionWrapper, MotionWrapper } from "@/wrapper"
 import { BiLinkExternal } from "react-icons/bi"
-import SectionHeading from "../../components/SectionHeading"
+import SectionHeading from "@/components/SectionHeading"
 
 const Skills = () => {
-  const [skills, setSkills] = useState([])
-  const [certifications, setCertifications] = useState([])
+
+  // Sanity response type (full data structure)
+  type SanitySkillType = {
+    _id: string
+    _type: string
+    _createdAt: string
+    _updatedAt: string
+    _rev: string
+    name: string
+    bgColor: string
+    icon: {
+      asset: {
+        _ref: string
+        _type: string
+      }
+      _type: string
+    }
+    index: string
+  }
+
+  // Component-specific type (only the data we actually need)
+  type SkillType = {
+    index: string
+    name: string
+    icon: {
+      asset: {
+        _ref: string
+      }
+    }
+  }
+
+  // Sanity response type (full data structure)
+  type SanityCertificationType = {
+    _id: string;
+    _type: string;
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    certificate: string;
+    certificateLink: string;
+    credentialId: string;
+    index: string;
+    issued: string;
+    from: string;
+    icon: {
+      asset: {
+        _ref: string;
+        _type: string;
+      };
+      _type: string;
+    };
+  };
+
+  // Component-specific type (only the data we actually use)
+  type CertificationType = {
+    index: string;
+    certificate: string;
+    certificateLink: string;
+    credentialId: string;
+    issued: string;
+    from: string;
+    icon: {
+      asset: {
+        _ref: string;
+      };
+    };
+  };
+
+  const [skills, setSkills] = useState<SkillType[]>([])
+  const [certifications, setCertifications] = useState<CertificationType[]>([])
 
   useEffect(() => {
     const QUERY = '*[_type == "skills"]'
     const certif_QUERY = '*[_type == "certifications"]'
 
-    client.fetch(QUERY).then((data) => {
-      setSkills(data)
+    client.fetch<SanitySkillType[]>(QUERY).then((data) => {
+      const usedSkillsData = data.map(({
+        index,
+        name,
+        icon: {
+          asset
+        }
+      }) => (
+        {
+          index,
+          name,
+          icon: {
+            asset
+          }
+        }
+      )).sort((a, b) => parseInt(a.index) - parseInt(b.index))
+
+      setSkills(usedSkillsData)
     })
 
-    client.fetch(certif_QUERY).then((data) => {
-      setCertifications(data)
+    client.fetch<SanityCertificationType[]>(certif_QUERY).then((data) => {
+      const usedCertificationData: CertificationType[] = data.map(({
+        certificate,
+        certificateLink,
+        credentialId,
+        index,
+        issued,
+        from,
+        icon: { asset }
+      }) => ({
+        certificate,
+        certificateLink,
+        credentialId,
+        index,
+        issued,
+        from,
+        icon: { asset }
+      })).sort((a, b) => parseInt(a.index) - parseInt(b.index))
+
+      setCertifications(usedCertificationData)
+
     })
   }, [])
+
 
   const sub_cert_style =
     "ml-[2.6rem] before:content-['--'] before:absolute before:left-[-1.1rem]"
@@ -40,7 +144,6 @@ const Skills = () => {
         >
           {/* sorting the skills'icons using skill's 'index' property before mapping */}
           {skills
-            .sort((a, b) => a.index - b.index)
             .map((skill) => (
               <motion.div
                 whileInView={{ opacity: [0, 1], y: [50, 0] }}
@@ -50,7 +153,7 @@ const Skills = () => {
               >
                 <img
                   className="size-10 2xl:size-12 block mx-auto my-[5px]"
-                  src={urlFor(skill.icon)}
+                  src={urlFor(skill.icon).url()}
                   alt={skill.name}
                 />
                 <p className="text-base 2xl:text-xl text-center text-gray leading-6 mt-1">
@@ -68,19 +171,18 @@ const Skills = () => {
             Certifications
           </h2>
           {certifications
-            .sort((a, b) => a.index - b.index)
             .map((credential) => (
               <motion.div
                 className={
-                  (credential.index == 0 ? "" : sub_cert_style) +
+                  (credential.index === "0" ? "" : sub_cert_style) +
                   " group relative bg-black/5 rounded-lg flex justify-start items-center p-2 mx-0 hover:before:content-[''] hover:bg-white hover:scale-110 min-[450px]:hover:scale-125 my-2 hover:my-[-12px] hover:shadow-simpleShadow hover:z-10 transition-all duration-300 ease-linear"
                 }
                 key={credential.credentialId}
               >
                 <img
-                  src={urlFor(credential.icon)}
+                  src={urlFor(credential.icon).url()}
                   className={
-                    (credential.index == 0 ? "size-8 bg-gray " : "size-6 ") +
+                    (credential.index === "0" ? "size-8 bg-gray " : "size-6 ") +
                     "group-hover:size-12 mr-4"
                   }
                   alt="credential logo"
@@ -88,7 +190,7 @@ const Skills = () => {
                 <div>
                   <h4
                     className={
-                      (credential.index == 0 ? "text-xl " : "text-base ") +
+                      (credential.index === "0" ? "text-xl " : "text-base ") +
                       "font-medium"
                     }
                   >
@@ -101,6 +203,7 @@ const Skills = () => {
                       href={credential.certificateLink}
                       className="text-secondary  cursor-pointer"
                       target="_blank"
+                      rel="noreferrer"
                     >
                       show
                       <BiLinkExternal className="inline-block w-4 ml-1" />

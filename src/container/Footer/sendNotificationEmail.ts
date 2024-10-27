@@ -1,6 +1,6 @@
 import emailjs, { EmailJSResponseStatus } from "@emailjs/browser"
 
-interface ContactDataType {
+type ContactDataType = {
   name: string
   email: string
   message: string
@@ -18,7 +18,7 @@ const sendNotificationEmail = async (
   }
 
   try {
-    const response = await emailjs.send(
+    const response: EmailJSResponseStatus = await emailjs.send(
       "service_0vxw8au",
       "PortfolioContact_d16pcv9",
       templateData,
@@ -27,7 +27,7 @@ const sendNotificationEmail = async (
 
     // TODO: Send success & error status to the backend (to store in the same user's entry)
     console.log("Email sent successfully:", response)
-    return response.status
+    return response
   } catch (error) {
     console.error("Error sending email:", error)
     throw error

@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-vars */
 import React from "react"
 import { motion } from "framer-motion"
-import images from "../../constants/images"
-import SectionWrapper from "../../wrapper/SectionWrapper"
+import images from "@/constants/images"
+import { specialTechs } from "@/constants/constants"
+import SectionWrapper from "@/wrapper/SectionWrapper"
 import ProfileText from "./ProfileText"
 
 const scaleVariants = {
@@ -66,7 +67,7 @@ const Hero = () => (
       whileInView={scaleVariants.whileInView}
       className="flex-[0.75] flex flex-row xl:flex-col flex-wrap justify-evenly items-start h-full max-xl:w-full"
     >
-      {[images.git, images.react, images.tailwind].map((circle, index) => (
+      {specialTechs.map((circle, index) => (
         <div
           className="flex justify-center items-center size-32 first:size-24 last:size-20 2xl:size-48 2xl:first:size-36 2xl:last:size-28 bg-white shadow-hoverShadow rounded-full m-4 xl:m-7"
           key={`circle-${index}`}
