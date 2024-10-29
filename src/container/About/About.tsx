@@ -45,7 +45,7 @@ const About = () => {
             >
               <div className="size-24 rounded-full overflow-hidden bg-white border-4 border-blue-500">
                 <img
-                  src={urlFor(imgUrl).url()}
+                  src={urlFor(imgUrl)}
                   className="size-full p-1 rounded-full"
                   alt={title}
                 />

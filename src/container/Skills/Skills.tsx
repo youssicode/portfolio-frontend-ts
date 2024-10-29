@@ -153,7 +153,7 @@ const Skills = () => {
               >
                 <img
                   className="size-10 2xl:size-12 block mx-auto my-[5px]"
-                  src={urlFor(skill.icon).url()}
+                  src={urlFor(skill.icon)}
                   alt={skill.name}
                 />
                 <p className="text-base 2xl:text-xl text-center text-gray leading-6 mt-1">
@@ -180,7 +180,7 @@ const Skills = () => {
                 key={credential.credentialId}
               >
                 <img
-                  src={urlFor(credential.icon).url()}
+                  src={urlFor(credential.icon)}
                   className={
                     (credential.index === "0" ? "size-8 bg-gray " : "size-6 ") +
                     "group-hover:size-12 mr-4"

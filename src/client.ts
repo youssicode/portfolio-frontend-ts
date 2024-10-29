@@ -9,4 +9,5 @@ export const client = createClient({
   token: import.meta.env.VITE_REACT_APP_PORTFOLIO_SANITY_PROJECT_TOKEN,
 })
 
-export const urlFor = (source) => imageUrlBuilder(client).image(source)
+// This function take a Sanity image's ID and return a full web Url to access it fron the UI
+export const urlFor = (source) => imageUrlBuilder(client).image(source).url()
