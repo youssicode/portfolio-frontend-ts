@@ -7,13 +7,14 @@ interface WorkImagePreviewProps {
   imageSrc: string
 }
 //* Display a preview view of the work's image
-const WorkImagePreview: React.FC<WorkImagePreviewProps> = ({
+const WorkImagePreview = ({
   closeModal,
   imageSrc,
-}) => {
-  const imgRef = useRef(null)
+}: WorkImagePreviewProps) => {
 
-  // Prevent scrolling when WorkImagePreview is displayed
+  const imgRef = useRef<HTMLImageElement>(null)
+
+  // Prevent scrolling when Work's image is displayed
   useEffect(() => {
     document.body.style.height = "100vh"
     document.body.style.overflowY = "hidden"
@@ -25,7 +26,7 @@ const WorkImagePreview: React.FC<WorkImagePreviewProps> = ({
   }, [])
 
   // Close the preview if the user press the 'Esc' key
-  const handleEscapePress = (event) => {
+  const handleEscapePress = (event: KeyboardEvent) => {
     if (event.key === "Escape") {
       closeModal()
     }
@@ -38,14 +39,14 @@ const WorkImagePreview: React.FC<WorkImagePreviewProps> = ({
   }, [])
 
   // Close the preview if the user click outside the image
-  const handleModalClick = (e) => {
-    const imgRect = imgRef.current.getBoundingClientRect()
-    if (
+  const handleModalClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const imgRect = imgRef.current?.getBoundingClientRect()
+    if (imgRect && (
       e.clientX < imgRect.left ||
       e.clientX > imgRect.right ||
       e.clientY > imgRect.bottom ||
       e.clientY < imgRect.top
-    )
+    ))
       closeModal()
   }
 

@@ -1,22 +1,17 @@
 import React from "react"
+import { projectsFilterOptions } from "@/constants/constants"
 
-interface FilterProps {
+type FilterProps = {
   activeFilter: string
   handleFilter: (item: string) => void
 }
 const Filter: React.FC<FilterProps> = ({ activeFilter, handleFilter }) => {
   const activeStyle = { backgroundColor: "#313bac", color: "white" }
-  const filterOptions = [
-    "HTML & CSS only",
-    "Vanilla JS",
-    "React",
-    "Full-Stack",
-    "All",
-  ]
+
 
   return (
     <div className="flex justify-center items-center flex-wrap gap-4 mt-16 mx-0 mb-8 cursor-pointer">
-      {filterOptions.map((item, index) => (
+      {projectsFilterOptions.map((item, index) => (
         <div
           onClick={() => handleFilter(item)}
           key={index}

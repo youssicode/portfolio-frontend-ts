@@ -3,7 +3,7 @@ import SocialMedia from "../components/SocialMedia"
 import NavigationDots from "../components/NavigationDots"
 
 type SectionWrapperType = (
-  Component: React.ComponentType<any>,
+  Component: React.FunctionComponent,
   sectionId: string,
   classNames: string
 ) => () => JSX.Element
@@ -29,7 +29,6 @@ const SectionWrapper: SectionWrapperType = (Component, sectionId, classNames) =>
         <div className="container mx-auto flex">
           <SocialMedia />
 
-          {/* USE grow */}
           <div className="flex-1 w-64 flex flex-col justify-center items-center pt-24 pb-6 min-[450px]:pb-24 px-4 min-[450px]:px-8">
             <Component />
 

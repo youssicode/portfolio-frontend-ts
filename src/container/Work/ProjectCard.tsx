@@ -4,38 +4,39 @@ import { AiFillGithub } from "react-icons/ai"
 import { BiLinkExternal } from "react-icons/bi"
 import { FaExpand } from "react-icons/fa"
 
-interface ProjectCardProps {
-  work: {
-    imgUrl: string
-    name: string
-    title: string
-    projectLink: string
-    technologies: string[]
-    codeLink: string
-    description: string
-  }
+type CardWorkType = {
+  imgUrl: { asset: { _ref: string } }
+  title: string
+  projectLink: string
+  technologies: string[]
+  codeLink: string
+  description: string
+
+}
+type ProjectCardProps = {
+  work: CardWorkType
   handleImageClick: (url: string) => void
 }
-const ProjectCard: React.FC<ProjectCardProps> = ({
+const ProjectCard = ({
   work,
   handleImageClick,
-}) => {
+}: ProjectCardProps) => {
   const {
     imgUrl,
-    name,
     title,
     projectLink,
     technologies,
     codeLink,
     description,
-  } = work
+  }: CardWorkType = work
+
   return (
     <div className="w-full max-w-[27rem] flex flex-col justify-start items-center bg-white text-black transition-all duration-300 shadow-simpleShadow rounded-md overflow-hidden hover:scale-105">
       <div className="relative w-full h-auto min-h-44 p-1 shadow-simpleShadow">
         <img
           src={urlFor(imgUrl)}
           className="w-full rounded-t-sm object-cover"
-          alt={name}
+          alt={title}
         />
         <FaExpand
           onClick={() => handleImageClick(urlFor(imgUrl))}
