@@ -1,6 +1,6 @@
-import React, { FC } from "react"
+import React from "react"
 
-interface ButtonProps {
+type ButtonProps = {
   name: string
   handleClick: (name: string) => void
   children: React.ReactNode

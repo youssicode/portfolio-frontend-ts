@@ -3,7 +3,7 @@ import { TypeAnimation } from "react-type-animation"
 import { firstDefinition, secondDefinition } from "@/constants/constants"
 
 const ProfileText = () => {
-
+  const animationStyle: React.CSSProperties = { display: "inline-block", width: "100%", textAlign: "center" }
   return (
     <TypeAnimation
       sequence={[firstDefinition, 1200, secondDefinition, 1200]}
@@ -12,7 +12,7 @@ const ProfileText = () => {
       preRenderFirstString={true}
       speed={50}
       deletionSpeed={80}
-      style={{ display: "inline-block", width: "100%", textAlign: "center" }}
+      style={animationStyle}
       repeat={Infinity}
     />
   )

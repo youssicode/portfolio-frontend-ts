@@ -1,4 +1,4 @@
-import React from "react"
+import React, { CSSProperties } from "react"
 import { projectsFilterOptions } from "@/constants/constants"
 
 type FilterProps = {
@@ -6,7 +6,7 @@ type FilterProps = {
   handleFilter: (item: string) => void
 }
 const Filter: React.FC<FilterProps> = ({ activeFilter, handleFilter }) => {
-  const activeStyle = { backgroundColor: "#313bac", color: "white" }
+  const activeStyle: CSSProperties = { backgroundColor: "#313bac", color: "white" }
 
 
   return (

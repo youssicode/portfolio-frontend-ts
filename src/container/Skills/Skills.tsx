@@ -126,7 +126,7 @@ const Skills = () => {
   }, [])
 
 
-  const sub_cert_style =
+  const subCertificateStyle =
     "ml-[2.6rem] before:content-['--'] before:absolute before:left-[-1.1rem]"
 
   return (
@@ -174,7 +174,7 @@ const Skills = () => {
             .map((credential) => (
               <motion.div
                 className={
-                  (credential.index === "0" ? "" : sub_cert_style) +
+                  (credential.index === "0" ? "" : subCertificateStyle) +
                   " group relative bg-black/5 rounded-lg flex justify-start items-center p-2 mx-0 hover:before:content-[''] hover:bg-white hover:scale-110 min-[450px]:hover:scale-125 my-2 hover:my-[-12px] hover:shadow-simpleShadow hover:z-10 transition-all duration-300 ease-linear"
                 }
                 key={credential.credentialId}
