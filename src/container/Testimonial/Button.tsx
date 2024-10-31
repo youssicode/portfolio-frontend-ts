@@ -1,8 +1,9 @@
 import React from "react"
+import { BtnName } from "./Testimonial"
 
 type ButtonProps = {
-  name: string
-  handleClick: (name: string) => void
+  name: BtnName
+  handleClick: (name: BtnName) => void
   children: React.ReactNode
 }
 const Button = ({ name, children, handleClick }: ButtonProps) => {

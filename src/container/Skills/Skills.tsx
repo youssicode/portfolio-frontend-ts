@@ -144,20 +144,20 @@ const Skills = () => {
         >
           {/* sorting the skills'icons using skill's 'index' property before mapping */}
           {skills
-            .map((skill) => (
+            .map(({ name, icon }) => (
               <motion.div
                 whileInView={{ opacity: [0, 1], y: [50, 0] }}
                 transition={{ duration: 0.5 }}
                 className="w-24 2xl:w-28 p-2 rounded-2xl bg-[white] border border-solid border-lightGray hover:shadow-simpleShadow"
-                key={skill.name}
+                key={name}
               >
                 <img
                   className="size-10 2xl:size-12 block mx-auto my-[5px]"
-                  src={urlFor(skill.icon)}
-                  alt={skill.name}
+                  src={urlFor(icon)}
+                  alt={name}
                 />
                 <p className="text-base 2xl:text-xl text-center text-gray leading-6 mt-1">
-                  {skill.name}
+                  {name}
                 </p>
               </motion.div>
             ))}

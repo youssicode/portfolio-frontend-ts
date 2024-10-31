@@ -1,9 +1,9 @@
-import React from "react"
+import React, { CSSProperties } from "react"
 import SocialMedia from "../components/SocialMedia"
 import NavigationDots from "../components/NavigationDots"
 
 type SectionWrapperType = (
-  Component: React.FunctionComponent,
+  Component: React.FC,
   sectionId: string,
   classNames: string
 ) => () => JSX.Element
@@ -11,7 +11,7 @@ type SectionWrapperType = (
 // Define a Higher Order Component as a wrapper for a section
 const SectionWrapper: SectionWrapperType = (Component, sectionId, classNames) =>
   function HOC() {
-    const headerBg = {
+    const headerBg: CSSProperties = {
       backgroundImage: `url('/src/assets/bgIMG.png')`,
       backgroundSize: "cover",
       backgroundPosition: "left",

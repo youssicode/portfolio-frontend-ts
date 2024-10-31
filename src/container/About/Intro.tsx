@@ -1,4 +1,4 @@
-import React from "react"
+import React, { CSSProperties } from "react"
 import { FaHandPaper, FaLink } from "react-icons/fa"
 
 type IntroProps = {
@@ -32,7 +32,7 @@ const Intro = ({ heading, text, image }: IntroProps) => {
       {image && (
         <div
           className="hidden lg:block flex-1 h-full bg-no-repeat bg-lightGray bg-cover bg-center relative right-6 rounded-xl shadow-simpleShadow"
-          style={{ backgroundImage: `url(${image})` }}
+          style={{ backgroundImage: `url(${image})` } satisfies CSSProperties}
         ></div>
       )}
     </div>

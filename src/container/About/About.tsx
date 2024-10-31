@@ -33,8 +33,7 @@ const About = () => {
         image={images.working}
       ></Intro>
       <div className="flex justify-center items-start flex-wrap gap-16 lg:gap-24 mt-12 lg:mt-20 mb-8">
-        {abouts.map((about: AboutItem, index: number) => {
-          const { title, description, imgUrl } = about
+        {abouts.map(({ title, description, imgUrl }: AboutItem, index: number) => {
           return (
             <motion.div
               whileInView={{ opacity: 1 }}

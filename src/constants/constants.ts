@@ -17,13 +17,10 @@ const projectsFilterOptions: string[] = [
   "Full-Stack",
   "All",
 ]
-const firstDefinition: string = "front-end developer"
-const secondDefinition: string = "Meta-certified"
 
-export {
-  navLinks,
-  specialTechs,
-  firstDefinition,
-  secondDefinition,
-  projectsFilterOptions,
+enum ProfileDefinitions {
+  First = "front-end developer",
+  Second = "Meta-certified",
 }
+
+export { navLinks, specialTechs, ProfileDefinitions, projectsFilterOptions }

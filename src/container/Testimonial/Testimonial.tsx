@@ -24,6 +24,8 @@ type testimonialsType = {
   imgurl: { asset: { _ref: string } }
 }
 
+export enum BtnName { leftBtn, rightBtn }
+
 const Testimonial = () => {
   const [currentIndex, setCurrentIndex] = useState<number>(0)
   const [testimonials, setTestimonials] = useState<testimonialsType[]>([])
@@ -43,9 +45,9 @@ const Testimonial = () => {
     })
   }, [])
 
-  const handleClick: (btnName: string) => void = (btnName) => {
+  const handleClick: (btnName: BtnName) => void = (btnName) => {
     const newIndex =
-      btnName === "leftBtn"
+      btnName === BtnName.leftBtn
         ? currentIndex === 0
           ? testimonials.length - 1
           : currentIndex - 1
@@ -94,14 +96,14 @@ const Testimonial = () => {
       </div>
 
       <div className="flex flex-row mt-4 justify-center items-center">
-        <Button name="leftBtn" handleClick={handleClick}>
+        <Button name={BtnName.leftBtn} handleClick={handleClick}>
           <HiChevronLeft className="size-8 2xl:size-10 text-secondary group-hover:text-white" />
         </Button>
 
-        <Button name="rightBtn" handleClick={handleClick}>
+        <Button name={BtnName.rightBtn} handleClick={handleClick}>
           <HiChevronRight className="size-8 2xl:size-10 text-secondary group-hover:text-white" />
         </Button>
-      </div>
+      </div >
     </>
   )
 }

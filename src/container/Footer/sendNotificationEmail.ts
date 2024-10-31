@@ -6,11 +6,11 @@ type ContactDataType = {
   message: string
 }
 
-const sendNotificationEmail = async (
-  contactData: ContactDataType
-): Promise<EmailJSResponseStatus> => {
-  const { name, email, message } = contactData
-
+const sendNotificationEmail = async ({
+  name,
+  email,
+  message,
+}: ContactDataType): Promise<EmailJSResponseStatus> => {
   const templateData = {
     from_name: name,
     from_email: email,

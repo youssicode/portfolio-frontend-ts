@@ -1,12 +1,12 @@
 import React from "react"
 import { TypeAnimation } from "react-type-animation"
-import { firstDefinition, secondDefinition } from "@/constants/constants"
+import { ProfileDefinitions } from "@/constants/constants"
 
 const ProfileText = () => {
   const animationStyle: React.CSSProperties = { display: "inline-block", width: "100%", textAlign: "center" }
   return (
     <TypeAnimation
-      sequence={[firstDefinition, 1200, secondDefinition, 1200]}
+      sequence={[ProfileDefinitions.First, 1200, ProfileDefinitions.Second, 1200]}
       wrapper="span"
       cursor={true}
       preRenderFirstString={true}
