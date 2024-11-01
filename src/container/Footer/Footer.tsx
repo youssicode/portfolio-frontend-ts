@@ -45,18 +45,6 @@ const Footer = () => {
     try {
       await validationSchema.validate(formData, { abortEarly: false })
       setLoading(true)
-
-      const contact = {
-        _type: "contact",
-        name: formData.userName,
-        email: formData.email,
-        message: formData.message,
-      }
-      //save user's input on Sanity database
-      await client.create(contact)
-      setLoading(false)
-      setIsFormSubmitted(true)
-      sendNotificationEmail(contact)
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         const errors = err.inner.reduce((acc: formErrorsTypes, error) => {
@@ -67,8 +55,33 @@ const Footer = () => {
         }, {})
         setFormErrors(errors)
       } else {
-        console.log(err)
+        console.log("1st Try/Catch", err)
       }
+      return // Exit the handler
+    }
+
+    try {
+      const contact_info = {
+        _type: "contac", //!!
+        name: formData.userName,
+        email: formData.email,
+        message: formData.message,
+      }
+      //save user's input on Sanity database
+      const result = await client.create(contact_info)
+      console.log("Sanity result", result);
+
+      // TODO: the following code is executed even if contact didn't saved!
+      // TODO: Shoud look for a response that indicates that the data was saved
+      // TODO: and execute the following code only if the data was saved successfully
+      setLoading(false)
+      setIsFormSubmitted(true)
+      const { status, text } = await sendNotificationEmail(contact_info)
+      console.log(status, text)
+    } catch (err) {
+      console.log("2nd Try/Catch", err);
+      setLoading(false)
+      // TODO: Add error handling to informe the user that the data couldn't be saved
     }
   }
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import { client, urlFor } from "@/client"
+import { urlFor } from "@/client"
+import { fetchSanityData } from "@/constants/utils"
 import { SectionWrapper, MotionWrapper } from "@/wrapper"
 import { BiLinkExternal } from "react-icons/bi"
 import SectionHeading from "@/components/SectionHeading"
@@ -78,53 +79,35 @@ const Skills = () => {
   const [certifications, setCertifications] = useState<CertificationType[]>([])
 
   useEffect(() => {
-    const QUERY = '*[_type == "skills"]'
-    const certif_QUERY = '*[_type == "certifications"]'
+    const skillMapper = ({ index, name, icon: { asset } }: SanitySkillType): SkillType => ({
+      index,
+      name,
+      icon: { asset }
+    });
 
-    client.fetch<SanitySkillType[]>(QUERY).then((data) => {
-      const usedSkillsData = data.map(({
-        index,
-        name,
-        icon: {
-          asset
-        }
-      }) => (
-        {
-          index,
-          name,
-          icon: {
-            asset
-          }
-        }
-      )).sort((a, b) => parseInt(a.index) - parseInt(b.index))
+    const certificationMapper = ({
+      certificate,
+      certificateLink,
+      credentialId,
+      index,
+      issued,
+      from,
+      icon: { asset }
+    }: SanityCertificationType): CertificationType => ({
+      certificate,
+      certificateLink,
+      credentialId,
+      index,
+      issued,
+      from,
+      icon: { asset }
+    });
 
-      setSkills(usedSkillsData)
-    })
+    fetchSanityData<SanitySkillType, SkillType>('*[_type == "skills"]', skillMapper, setSkills);
+    fetchSanityData<SanityCertificationType, CertificationType>('*[_type == "certifications"]', certificationMapper, setCertifications);
+  }, []);
 
-    client.fetch<SanityCertificationType[]>(certif_QUERY).then((data) => {
-      const usedCertificationData: CertificationType[] = data.map(({
-        certificate,
-        certificateLink,
-        credentialId,
-        index,
-        issued,
-        from,
-        icon: { asset }
-      }) => ({
-        certificate,
-        certificateLink,
-        credentialId,
-        index,
-        issued,
-        from,
-        icon: { asset }
-      })).sort((a, b) => parseInt(a.index) - parseInt(b.index))
-
-      setCertifications(usedCertificationData)
-
-    })
-  }, [])
-
+  const sortState = (data: SkillType[] | CertificationType[]) => data.sort((a, b) => parseInt(a.index) - parseInt(b.index))
 
   const subCertificateStyle =
     "ml-[2.6rem] before:content-['--'] before:absolute before:left-[-1.1rem]"
@@ -143,7 +126,7 @@ const Skills = () => {
           transition={{ delayChildren: 0.5 }}
         >
           {/* sorting the skills'icons using skill's 'index' property before mapping */}
-          {skills
+          {(sortState(skills) as SkillType[])
             .map(({ name, icon }) => (
               <motion.div
                 whileInView={{ opacity: [0, 1], y: [50, 0] }}
@@ -170,19 +153,21 @@ const Skills = () => {
           <h2 className="font-semibold text-2xl text-center my-3">
             Certifications
           </h2>
-          {certifications
-            .map((credential) => (
+
+          {/* sorting the certifications using certification 'index' property before mapping */}
+          {(sortState(certifications) as CertificationType[])
+            .map(({ index, credentialId, icon, certificate, from, issued, certificateLink }) => (
               <motion.div
                 className={
-                  (credential.index === "0" ? "" : subCertificateStyle) +
+                  (index === "0" ? "" : subCertificateStyle) +
                   " group relative bg-black/5 rounded-lg flex justify-start items-center p-2 mx-0 hover:before:content-[''] hover:bg-white hover:scale-110 min-[450px]:hover:scale-125 my-2 hover:my-[-12px] hover:shadow-simpleShadow hover:z-10 transition-all duration-300 ease-linear"
                 }
-                key={credential.credentialId}
+                key={credentialId}
               >
                 <img
-                  src={urlFor(credential.icon)}
+                  src={urlFor(icon)}
                   className={
-                    (credential.index === "0" ? "size-8 bg-gray " : "size-6 ") +
+                    (index === "0" ? "size-8 bg-gray " : "size-6 ") +
                     "group-hover:size-12 mr-4"
                   }
                   alt="credential logo"
@@ -190,17 +175,17 @@ const Skills = () => {
                 <div>
                   <h4
                     className={
-                      (credential.index === "0" ? "text-xl " : "text-base ") +
+                      (index === "0" ? "text-xl " : "text-base ") +
                       "font-medium"
                     }
                   >
-                    {credential.certificate}
+                    {certificate}
                   </h4>
                   <p className="text-sm text-left text-gray leading-6 hidden group-hover:block">
-                    <span className="font-extrabold">{credential.from}</span> -{" "}
-                    {credential.issued} -{" "}
+                    <span className="font-extrabold">{from}</span> -{" "}
+                    {issued} -{" "}
                     <a
-                      href={credential.certificateLink}
+                      href={certificateLink}
                       className="text-secondary  cursor-pointer"
                       target="_blank"
                       rel="noreferrer"
