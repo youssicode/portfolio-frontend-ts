@@ -3,7 +3,7 @@ import React from "react"
 import { motion } from "framer-motion"
 
 type MotionWrapperType = (
-  Component: React.FunctionComponent,
+  Component: React.FC,
   classNames: string
 ) => () => JSX.Element
 const MotionWrapper: MotionWrapperType = (Component, classNames) => {

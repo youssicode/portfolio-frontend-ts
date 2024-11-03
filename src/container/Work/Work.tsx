@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react"
-import { client } from "../../client"
 import { SectionWrapper, MotionWrapper } from "../../wrapper"
 import SectionHeading from "../../components/SectionHeading"
 import WorkImagePreview from "./WorkImagePreview"
 import ProjectCard from "./ProjectCard"
 import Filter from "./Filter"
 import { motion } from "framer-motion"
+import { fetchSanityData } from "@/constants/utils"
 
-type sanityWorksType = {
+type SanityWorksType = {
   title: string
   codeLink: string
   projectLink: string
@@ -40,16 +40,15 @@ function Work() {
   const [animateCard, setAnimateCard] = useState<{ y: number, opacity: number }>({ y: 0, opacity: 1 })
 
   useEffect(() => {
-    const QUERY = '*[_type == "works"]'
-    client.fetch<sanityWorksType[]>(QUERY).then((data) => {
-      const usedWorksData: WorksType[] = data.map(({
+    const fetchWorks = async () => {
+      const worksMapper = ({
         codeLink,
         projectLink,
         description,
         title,
         technologies,
         tags,
-        imgUrl: { asset: { _ref } } }) => ({
+        imgUrl: { asset: { _ref } } }: SanityWorksType): WorksType => ({
           codeLink,
           projectLink,
           description,
@@ -57,10 +56,12 @@ function Work() {
           title,
           tags,
           imgUrl: { asset: { _ref } }
-        }))
-      setWorks(usedWorksData)
-      setFiltredWorks(usedWorksData)
-    })
+        })
+      const fetchedWorks = await fetchSanityData<SanityWorksType, WorksType>('*[_type == "works"]', worksMapper, setWorks)
+      setFiltredWorks(fetchedWorks)
+    }
+
+    fetchWorks()
   }, [])
 
   useEffect(() => {
@@ -86,7 +87,7 @@ function Work() {
 
   return (
     <>
-      <SectionHeading text1="my creative" text2="portfolio" />
+      <SectionHeading text1="code in" text2="action" />
 
       <Filter activeFilter={activeFilter} handleFilter={handleWorksFilter} />
 

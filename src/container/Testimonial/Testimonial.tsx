@@ -2,8 +2,9 @@
 import React, { useState, useEffect } from "react"
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi"
 import { SectionWrapper, MotionWrapper } from "../../wrapper"
-import { urlFor, client } from "../../client"
+import { urlFor } from "../../client"
 import Button from "./Button"
+import { fetchSanityData } from "@/constants/utils"
 
 type sanityTestimonialsType = {
   name: string
@@ -30,19 +31,14 @@ const Testimonial = () => {
   const [currentIndex, setCurrentIndex] = useState<number>(0)
   const [testimonials, setTestimonials] = useState<testimonialsType[]>([])
 
-  const QUERY = '*[_type == "testimonials"]'
   useEffect(() => {
-    client.fetch<sanityTestimonialsType[]>(QUERY).then((data) => {
-      // Distructure just the necessary data
-      const transformedData = data.map(({
-        name, feedback, company, imgurl: { asset }
-      }
-      ) => ({
-        name, feedback, company, imgurl: { asset }
-      }))
-
-      setTestimonials(transformedData)
+    const testimonialsMapper = ({
+      name, feedback, company, imgurl: { asset }
+    }: sanityTestimonialsType
+    ): testimonialsType => ({
+      name, feedback, company, imgurl: { asset }
     })
+    fetchSanityData<sanityTestimonialsType, testimonialsType>('*[_type == "testimonials"]', testimonialsMapper, setTestimonials)
   }, [])
 
   const handleClick: (btnName: BtnName) => void = (btnName) => {
@@ -57,7 +53,7 @@ const Testimonial = () => {
     setCurrentIndex(newIndex)
   }
 
-  const TestimonialCardClasses = "flex flex-col md:flex-row justify-center items-center gap-4 w-full md:w-4/5 lg:w-3/5 min-h-72 bg-white p-6 rounded-xl shadow-hoverShadow transition-all duration-300 ease-in-out min-2xl:min-h-[450px]"
+  const TestimonialCardClasses = "mt-8 flex flex-col md:flex-row justify-center items-center gap-4 w-full md:w-4/5 lg:w-3/5 min-h-72 bg-white p-6 rounded-xl shadow-hoverShadow transition-all duration-300 ease-in-out min-2xl:min-h-[450px]"
   const currentTestimonial = testimonials.length > 0 ? testimonials[currentIndex] : null
 
   // If the testimonials not fetched yet, show a loading message

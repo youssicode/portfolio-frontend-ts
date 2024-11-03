@@ -6,6 +6,8 @@ import images from "@/constants/images"
 import SectionHeading from "@/components/SectionHeading"
 import { ErrorMsg } from "./ErrorMsg"
 import sendNotificationEmail from "./sendNotificationEmail"
+import Confirmation from "./Confirmation"
+import ContactCard from "./ContactCard"
 
 const Footer = () => {
   type formDataTypes = {
@@ -22,6 +24,7 @@ const Footer = () => {
     message: "",
   })
   const [loading, setLoading] = useState<boolean>(false)
+  const [submissionMessage, setSubmissionMessage] = useState<string>("")
   const [isFormSubmitted, setIsFormSubmitted] = useState<boolean>(false)
   const [formErrors, setFormErrors] = useState<formErrorsTypes>({})
 
@@ -45,6 +48,23 @@ const Footer = () => {
     try {
       await validationSchema.validate(formData, { abortEarly: false })
       setLoading(true)
+
+      //save user's input on Sanity database
+      const contact_info = {
+        _type: "contact",
+        name: formData.userName,
+        email: formData.email,
+        message: formData.message,
+      }
+      client.create(contact_info)
+
+      //send email to my inbox with user's input
+      sendNotificationEmail(contact_info)
+
+      setLoading(false)
+      setSubmissionMessage("Thank you for getting in touch!")
+      setIsFormSubmitted(true)
+
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         const errors = err.inner.reduce((acc: formErrorsTypes, error) => {
@@ -55,64 +75,19 @@ const Footer = () => {
         }, {})
         setFormErrors(errors)
       } else {
-        console.log("1st Try/Catch", err)
+        setSubmissionMessage("Oops! Something went wrong. Please try submitting the form again.")
+        setIsFormSubmitted(true)
       }
-      return // Exit the handler
-    }
-
-    try {
-      const contact_info = {
-        _type: "contac", //!!
-        name: formData.userName,
-        email: formData.email,
-        message: formData.message,
-      }
-      //save user's input on Sanity database
-      const result = await client.create(contact_info)
-      console.log("Sanity result", result);
-
-      // TODO: the following code is executed even if contact didn't saved!
-      // TODO: Shoud look for a response that indicates that the data was saved
-      // TODO: and execute the following code only if the data was saved successfully
-      setLoading(false)
-      setIsFormSubmitted(true)
-      const { status, text } = await sendNotificationEmail(contact_info)
-      console.log(status, text)
-    } catch (err) {
-      console.log("2nd Try/Catch", err);
-      setLoading(false)
-      // TODO: Add error handling to informe the user that the data couldn't be saved
     }
   }
 
   return (
     <>
-      <div className="flex flex-wrap justify-center">
-        <SectionHeading text1="take a" text2="coffee" />
-        &nbsp; &nbsp;{" "}
-        {/* A non-breaking space, {" "} doesn't work between two jsx elements */}
-        <SectionHeading text1="& chat" text2="with me" />
-      </div>
+      <SectionHeading text1="let's create" text2="together" />
 
       <div className="w-full md:w-3/5 flex justify-evenly items-center flex-wrap m-8 mt-16">
-        <div className="hover:shadow-hoverShadow min-w-72 flex flex-row justify-start items-center my-4 mx-0 p-4 rounded-lg cursor-pointer bg-lightGreen transition-all duration-300 ease-in-out">
-          <img className="size-10 my-0 mx-3" src={images.email} alt="email" />
-          <a
-            href="mailto:youssef.elhrouzi@yahoo.com"
-            className="text-base text-left text-gray leading-6"
-          >
-            youssef.el.hrouzi@gmail.com
-          </a>
-        </div>
-        <div className="hover:shadow-hoverShadow min-w-72 flex flex-row justify-start items-center my-4 mx-0 p-4 rounded-lg cursor-pointer bg-secondary/10 transition-all duration-300 ease-in-out">
-          <img className="size-10 my-0 mx-3" src={images.mobile} alt="phone" />
-          <a
-            href="tel:+212 (663) 020-777"
-            className="p-text text-base text-left text-gray leading-6"
-          >
-            +212 (663) 020-777
-          </a>
-        </div>
+        <ContactCard imgSource={images.email} altText="Email" contactInfo="youssef.el.hrouzi@gmail.com" />
+        <ContactCard imgSource={images.mobile} altText="Phone" contactInfo="+212 (663) 020-777" />
       </div>
       {!isFormSubmitted ? (
         <div className="flex justify-center items-center flex-col w-full my-4 mx-0 md:w-3/5 md:mx-8">
@@ -156,16 +131,12 @@ const Footer = () => {
             {!loading ? "Send Message" : "Sending..."}
           </button>
         </div>
-      ) : (
-        <div>
-          <h3 className="font-medium text-center text-black capitalize text-2xl min-[450px]:text-3xl 2xl:text-4xl mt-10">
-            Thank you for getting in touch!
-          </h3>
-        </div>
-      )}
+      ) : <Confirmation message={submissionMessage} />
+      }
     </>
   )
 }
+
 
 export default SectionWrapper(
   MotionWrapper(Footer, "app__footer"),

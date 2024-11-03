@@ -79,7 +79,7 @@ const Skills = () => {
   const [certifications, setCertifications] = useState<CertificationType[]>([])
 
   useEffect(() => {
-    const skillMapper = ({ index, name, icon: { asset } }: SanitySkillType): SkillType => ({
+    const skillsMapper = ({ index, name, icon: { asset } }: SanitySkillType): SkillType => ({
       index,
       name,
       icon: { asset }
@@ -103,7 +103,7 @@ const Skills = () => {
       icon: { asset }
     });
 
-    fetchSanityData<SanitySkillType, SkillType>('*[_type == "skills"]', skillMapper, setSkills);
+    fetchSanityData<SanitySkillType, SkillType>('*[_type == "skills"]', skillsMapper, setSkills);
     fetchSanityData<SanityCertificationType, CertificationType>('*[_type == "certifications"]', certificationMapper, setCertifications);
   }, []);
 
@@ -114,10 +114,7 @@ const Skills = () => {
 
   return (
     <>
-      <>
-        <SectionHeading text1="check out my" text2="skills" />
-        <SectionHeading text1="&" text2="certifications" />
-      </>
+      <SectionHeading text1="expertise &" text2="credentials" />
 
       <div className="app__skills-container w-full lg:w-4/5 mt-12 flex flex-col justify-center items-center gap-14 lg:gap-24 lg:flex-row">
         <motion.div

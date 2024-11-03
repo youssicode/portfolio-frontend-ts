@@ -45,10 +45,7 @@ const About = () => {
 
   return (
     <>
-      <>
-        <SectionHeading text1="i know that" text2="good development" />
-        <SectionHeading text1="means" text2="good Business" />
-      </>
+      <SectionHeading text1="building a new path" text2="in tech" />
       <Intro
         heading={"Hi again"}
         text={`My name's Youssef El-Hrouzi, a passionate front-end developer based in Morocco.

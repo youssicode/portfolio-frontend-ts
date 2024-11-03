@@ -3,6 +3,7 @@ import { urlFor } from "../../client"
 import { AiFillGithub } from "react-icons/ai"
 import { BiLinkExternal } from "react-icons/bi"
 import { FaExpand } from "react-icons/fa"
+import Link from "./Link"
 
 type CardWorkType = {
   imgUrl: { asset: { _ref: string } }
@@ -50,16 +51,8 @@ const ProjectCard = ({
             {title}
           </h4>
           <div className="flex justify-center items-center gap-2">
-            <a href={projectLink} target="_blank" rel="noreferrer">
-              <div className="size-9 flex justify-center items-center rounded-full bg-secondary/50 hover:bg-secondary text-white text-base font-extrabold cursor-pointer transition-all duration-300">
-                <BiLinkExternal className="size-2/3 text-white" />
-              </div>
-            </a>
-            <a href={codeLink} target="_blank" rel="noreferrer">
-              <div className="size-9 flex justify-center items-center rounded-full bg-secondary/50 hover:bg-secondary text-white text-base font-extrabold cursor-pointer transition-all duration-300">
-                <AiFillGithub className="size-2/3 text-white" />
-              </div>
-            </a>
+            <Link link={projectLink} Icon={BiLinkExternal} />
+            <Link link={codeLink} Icon={AiFillGithub} />
           </div>
         </div>
 
