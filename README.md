@@ -8,6 +8,8 @@ Thanks for checking out my personal portfolio.
 
 [Live Demo](https://el-hrouzi.com)
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/54db5e32-8eb0-4499-9221-678c36fa69e8/deploy-status)](https://app.netlify.com/sites/el-hrouzi/deploys)
+
 ## Table of Contents
 
 1. [Overview](#overview)
