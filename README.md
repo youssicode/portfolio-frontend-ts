@@ -16,7 +16,8 @@ Thanks for checking out my personal portfolio.
 2. [Features](#features)
 3. [Usage](#usage)
 4. [Technologies Used](#Technologies)
-5. [Contact](#contact)
+5. [Changelog] (#Changelog)
+6. [Contact](#contact)
 
 ### Overview
 
@@ -72,7 +73,18 @@ Each section of the page also contains links to my social media accounts, includ
 
 ### Technologies
 
-- React, JavaScript, Tailwind CSS, Sanity, Framer Motion
+- React, TypeScript, Tailwind CSS, Sanity, Framer Motion
+
+### Changelog
+
+## Version 1.1
+
+- Added TypeScript
+- Added reusable functions and components
+- Fixed various bugs
+- Updated skills section
+- Changed sections headings
+- Improved code and logic
 
 ### Contact
 
