@@ -16,7 +16,7 @@ Thanks for checking out my personal portfolio.
 2. [Features](#features)
 3. [Usage](#usage)
 4. [Technologies Used](#Technologies)
-5. [Changelog] (#Changelog)
+5. [Change log](#Change-log)
 6. [Contact](#contact)
 
 ### Overview
@@ -75,7 +75,7 @@ Each section of the page also contains links to my social media accounts, includ
 
 - React, TypeScript, Tailwind CSS, Sanity, Framer Motion
 
-### Changelog
+### Change log
 
 ## Version 1.1
 
