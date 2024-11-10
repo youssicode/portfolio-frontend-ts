@@ -1,5 +1,5 @@
 import React, { CSSProperties } from "react"
-import { projectsFilterOptions } from "@/constants/constants"
+import { projectsFilterOptions } from "@/helpers/constants"
 
 type FilterProps = {
   activeFilter: string

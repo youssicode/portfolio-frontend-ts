@@ -1,6 +1,6 @@
 import React from "react"
 import { TypeAnimation } from "react-type-animation"
-import { ProfileDefinitions } from "@/constants/constants"
+import { ProfileDefinitions } from "@/helpers/constants"
 
 const ProfileText = () => {
   const animationStyle: React.CSSProperties = { display: "inline-block", width: "100%", textAlign: "center" }

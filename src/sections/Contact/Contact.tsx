@@ -1,15 +1,15 @@
 import React, { useState } from "react"
 import * as Yup from "yup"
-import { client } from "@/client"
-import { SectionWrapper, MotionWrapper } from "@/wrapper"
-import images from "@/constants/images"
+import { client } from "@/helpers/client"
+import { SectionWrapper, MotionWrapper } from "@/wrappers"
+import images from "@/helpers/images"
 import SectionHeading from "@/components/SectionHeading"
 import { ErrorMsg } from "./ErrorMsg"
 import sendNotificationEmail from "./sendNotificationEmail"
 import Confirmation from "./Confirmation"
 import ContactCard from "./ContactCard"
 
-const Footer = () => {
+const Contact = () => {
   type formDataTypes = {
     userName: string
     email: string
@@ -139,7 +139,7 @@ const Footer = () => {
 
 
 export default SectionWrapper(
-  MotionWrapper(Footer, "app__footer"),
+  MotionWrapper(Contact, "app__footer"),
   "contact",
   "bg-white"
 )

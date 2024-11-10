@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import { urlFor } from "@/client"
-import { SectionWrapper, MotionWrapper } from "@/wrapper"
-import images from "@/constants/images"
+import { urlFor } from "@/helpers/client"
+import { SectionWrapper, MotionWrapper } from "@/wrappers"
+import images from "@/helpers/images"
 import Intro from "./Intro"
 import SectionHeading from "@/components/SectionHeading"
-import { fetchSanityData } from "@/constants/utils"
+import { fetchSanityData } from "@/helpers/utils"
 
 const About = () => {
 

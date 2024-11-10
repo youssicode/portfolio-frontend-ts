@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react"
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi"
-import { SectionWrapper, MotionWrapper } from "../../wrapper"
-import { urlFor } from "../../client"
+import { SectionWrapper, MotionWrapper } from "../../wrappers"
+import { urlFor } from "../../helpers/client"
 import Button from "./Button"
-import { fetchSanityData } from "@/constants/utils"
+import { fetchSanityData } from "@/helpers/utils"
 
 type sanityTestimonialsType = {
   name: string

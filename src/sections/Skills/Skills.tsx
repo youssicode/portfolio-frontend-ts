@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import { urlFor } from "@/client"
-import { fetchSanityData } from "@/constants/utils"
-import { SectionWrapper, MotionWrapper } from "@/wrapper"
+import { urlFor } from "@/helpers/client"
+import { fetchSanityData } from "@/helpers/utils"
+import { SectionWrapper, MotionWrapper } from "@/wrappers"
 import { BiLinkExternal } from "react-icons/bi"
 import SectionHeading from "@/components/SectionHeading"
 

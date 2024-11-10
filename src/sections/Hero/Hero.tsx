@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 import React from "react"
 import { motion, Variants } from "framer-motion"
-import images from "@/constants/images"
-import { specialTechs } from "@/constants/constants"
-import SectionWrapper from "@/wrapper/SectionWrapper"
+import images from "@/helpers/images"
+import { specialTechs } from "@/helpers/constants"
+import SectionWrapper from "@/wrappers/SectionWrapper"
 import ProfileText from "./ProfileText"
 
 

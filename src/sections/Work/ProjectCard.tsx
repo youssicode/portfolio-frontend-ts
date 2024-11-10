@@ -1,5 +1,5 @@
 import React from "react"
-import { urlFor } from "../../client"
+import { urlFor } from "../../helpers/client"
 import { AiFillGithub } from "react-icons/ai"
 import { BiLinkExternal } from "react-icons/bi"
 import { FaExpand } from "react-icons/fa"

@@ -1,6 +1,6 @@
 import React, { CSSProperties } from "react"
 import SocialMedia from "../components/SocialMedia"
-import NavigationDots from "../components/NavigationDots"
+import NavDots from "../components/NavDots"
 
 type SectionWrapperType = (
   Component: React.FC,
@@ -19,7 +19,7 @@ const SectionWrapper: SectionWrapperType = (Component, sectionId, classNames) =>
     }
 
     return (
-      <div
+      <section
         id={sectionId}
         style={
           sectionId === "home" || sectionId === "testimonials" ? headerBg : {}
@@ -41,9 +41,9 @@ const SectionWrapper: SectionWrapperType = (Component, sectionId, classNames) =>
               </p>
             </div>
           </div>
-          <NavigationDots active={sectionId} />
+          <NavDots active={sectionId} />
         </div>
-      </div>
+      </section>
     )
   }
 

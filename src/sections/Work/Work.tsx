@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react"
-import { SectionWrapper, MotionWrapper } from "../../wrapper"
+import { SectionWrapper, MotionWrapper } from "../../wrappers"
 import SectionHeading from "../../components/SectionHeading"
 import WorkImagePreview from "./WorkImagePreview"
 import ProjectCard from "./ProjectCard"
 import Filter from "./Filter"
 import { motion } from "framer-motion"
-import { fetchSanityData } from "@/constants/utils"
+import { fetchSanityData } from "@/helpers/utils"
 
 type SanityWorksType = {
   title: string

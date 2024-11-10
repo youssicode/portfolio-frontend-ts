@@ -1,4 +1,4 @@
-import { client } from "@/client"
+import { client } from "@/helpers/client"
 
 export const fetchSanityData = async <T, U>(
   query: string,
