@@ -8,34 +8,35 @@ import { ErrorMsg } from "./ErrorMsg"
 import sendNotificationEmail from "./sendNotificationEmail"
 import Confirmation from "./Confirmation"
 import ContactCard from "./ContactCard"
+import InputFied from "./InputFied"
 
 const Contact = () => {
   type formDataTypes = {
     userName: string
     email: string
-    message: string
+    msg: string
   }
   type formErrorsTypes = {
     [key: string]: string
   }
+  const [loading, setLoading] = useState<boolean>(false)
+  const [isFormSubmitted, setIsFormSubmitted] = useState<boolean>(false)
   const [formData, setFormData] = useState<formDataTypes>({
     userName: "",
     email: "",
-    message: "",
+    msg: "",
   })
-  const [loading, setLoading] = useState<boolean>(false)
-  const [submissionMessage, setSubmissionMessage] = useState<string>("")
-  const [isFormSubmitted, setIsFormSubmitted] = useState<boolean>(false)
   const [formErrors, setFormErrors] = useState<formErrorsTypes>({})
+  const [submissionMessage, setSubmissionMessage] = useState<string>("")
 
-  const { userName, email, message } = formData
+  const { userName, email, msg } = formData
 
   const validationSchema = Yup.object().shape({
     userName: Yup.string().required("Name is required"),
     email: Yup.string()
       .email("Invalid email address")
       .required("Email is required"),
-    message: Yup.string().required("Message is required"),
+    msg: Yup.string().required("Message is required"),
   })
 
   const handleChangeInput: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void = (e) => {
@@ -54,7 +55,7 @@ const Contact = () => {
         _type: "contact",
         name: formData.userName,
         email: formData.email,
-        message: formData.message,
+        message: formData.msg,
       }
       client.create(contact_info)
 
@@ -62,7 +63,7 @@ const Contact = () => {
       sendNotificationEmail(contact_info)
 
       setLoading(false)
-      setSubmissionMessage("Thank you for getting in touch!")
+      setSubmissionMessage("Thanks for reaching out! I'll get back to you as soon as I can.")
       setIsFormSubmitted(true)
 
     } catch (err) {
@@ -91,44 +92,26 @@ const Contact = () => {
       </div>
       {!isFormSubmitted ? (
         <div className="flex justify-center items-center flex-col w-full my-4 mx-0 md:w-3/5 md:mx-8">
-          <div className="relative flex justify-center items-center w-full my-3 mx-0 rounded-lg cursor-pointer bg-primary hover:shadow-hoverShadow transition-all duration-300 ease-in-out">
-            <input
-              className="text-base text-left leading-6 w-full p-4 border-none rounded-md bg-primary font-dm text-secondary outline-none"
-              type="text"
-              placeholder="Your Name"
-              name="userName"
-              value={userName}
-              onChange={handleChangeInput}
-            />
-            {formErrors.userName && <ErrorMsg text={formErrors.userName} />}
-          </div>
-          <div className="relative flex justify-center items-center w-full my-3 mx-0 rounded-lg cursor-pointer bg-primary hover:shadow-hoverShadow transition-all duration-300 ease-in-out">
-            <input
-              className="text-base text-left leading-6 w-full p-4 border-none rounded-md bg-primary font-dm text-secondary outline-none"
-              type="email"
-              placeholder="Your Email"
-              name="email"
-              value={email}
-              onChange={handleChangeInput}
-            />
-            {formErrors.email && <ErrorMsg text={formErrors.email} />}
-          </div>
+
+          <InputFied placeholder="Your Name" name="userName" value={userName} inputHandler={handleChangeInput} error={formErrors.userName} />
+          <InputFied placeholder="Your Email" name="email" value={email} inputHandler={handleChangeInput} error={formErrors.email} />
+
           <div className="relative w-full my-3 mx-0 rounded-lg cursor-pointer bg-primary transition-all duration-300 ease-in-out hover:shadow-hoverShadow">
             <textarea
               className="text-base text-left leading-6 w-full p-4 border-none rounded-md bg-primary font-dm text-secondary outline-none h-40"
               placeholder="Your Message"
-              name="message"
-              value={message}
+              name="msg"
+              value={msg}
               onChange={handleChangeInput}
             />
-            {formErrors.message && <ErrorMsg text={formErrors.message} />}
+            {formErrors.msg && <ErrorMsg text={formErrors.msg} />}
           </div>
           <button
             type="button"
             className="text-base md:text-xl text-white bg-secondary py-4 px-8 rounded-lg border-none font-medium outline-none m-0 mt-8 font-dm transition-all duration-300 ease-in-out cursor-pointer hover:bg-white hover:outline-4 hover:outline-secondary hover:text-secondary"
             onClick={handleSubmit}
           >
-            {!loading ? "Send Message" : "Sending..."}
+            {!loading ? "Submit message" : "Processing..."}
           </button>
         </div>
       ) : <Confirmation message={submissionMessage} />
@@ -139,7 +122,7 @@ const Contact = () => {
 
 
 export default SectionWrapper(
-  MotionWrapper(Contact, "app__footer"),
+  MotionWrapper(Contact, "app__contact"),
   "contact",
   "bg-white"
 )

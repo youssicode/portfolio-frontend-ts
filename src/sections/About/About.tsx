@@ -56,11 +56,11 @@ const About = () => {
         {abouts.length > 0 ? (
           abouts.map(({ title, description, imgUrl }: AboutType, index: number) => (
             <motion.div
-              whileInView={{ opacity: 1 }}
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.5, type: "tween" }}
+              key={title}
               className="w-[85%] min-[450px]:w-60 flex justify-start items-center flex-col gap-4 2xl:w-[370px]"
-              key={index + title}
+              whileHover={{ scale: 1.05 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.5, type: "tween" }}
             >
               <div className="size-24 rounded-full overflow-hidden bg-white border-4 border-blue-500">
                 <img
