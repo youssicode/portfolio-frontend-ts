@@ -5,6 +5,7 @@ import { fetchSanityData } from "@/helpers/utils"
 import { SectionWrapper, MotionWrapper } from "@/wrappers"
 import { BiLinkExternal } from "react-icons/bi"
 import SectionHeading from "@/components/SectionHeading"
+import Loading from "@/components/Loading"
 
 const Skills = () => {
 
@@ -110,20 +111,22 @@ const Skills = () => {
   const sortState = (data: SkillType[] | CertificationType[]) => data.sort((a, b) => parseInt(a.index) - parseInt(b.index))
 
   const subCertificateStyle =
-    "ml-[2.6rem] before:content-['--'] before:absolute before:left-[-1.1rem]"
+    "ml-6 before:content-['*'] before:absolute before:left-[-1.1rem]"
+  // const subCertificateStyle =
+  //   "ml-[2.6rem] before:content-['--'] before:absolute before:left-[-1.1rem]"
 
   return (
     <>
       <SectionHeading text1="expertise &" text2="credentials" />
 
-      <div className="app__skills-container w-full lg:w-4/5 mt-12 flex flex-col justify-center items-center gap-14 lg:gap-24 lg:flex-row">
+      <div className="w-full lg:w-4/5 mt-12 flex flex-col justify-center items-center gap-14 lg:gap-24 lg:flex-row">
         <motion.div
-          className="app__skills-list flex-1 flex flex-wrap justify-center items-cenetr lg:justify-start lg:items-start min-w-56 max-w-4xl gap-8"
+          className="flex-1 flex flex-wrap justify-center items-cenetr lg:justify-start lg:items-start min-w-56 max-w-4xl gap-8"
           whileInView={{ opacity: [0, 1] }}
           transition={{ delayChildren: 0.5 }}
         >
           {/* sorting the skills'icons using skill's 'index' property before mapping */}
-          {(sortState(skills) as SkillType[])
+          {skills.length > 0 ? (sortState(skills) as SkillType[])
             .map(({ name, icon }) => (
               <motion.div
                 whileInView={{ opacity: [0, 1], y: [50, 0] }}
@@ -140,60 +143,71 @@ const Skills = () => {
                   {name}
                 </p>
               </motion.div>
-            ))}
+            )) : <Loading />}
+
         </motion.div>
 
+        {/* <div
+          className="relative flex flex-col h-[26rem] before:content-[''] before:w-0 before:h-[78%] before:border-l before:absolute before:left-[2.5rem] before:bottom-4
+        shadow-simpleShadow bg-black/5 backdrop-blur-sm rounded-3xl min-w-full min-[450px]:min-w-[24rem] py-2 px-4 mt-8 min-[900px]:mt-0"
+        > */}
         <div
-          className="relative h-[26rem] before:content-[''] before:w-0 before:h-[78%] before:border-l before:absolute before:left-[2.5rem] before:bottom-4
+          className="relative flex flex-col min-h-[25rem]
         shadow-simpleShadow bg-black/5 backdrop-blur-sm rounded-3xl min-w-full min-[450px]:min-w-[24rem] py-2 px-4 mt-8 min-[900px]:mt-0"
         >
           <h2 className="font-semibold text-2xl text-center my-3">
             Certifications
           </h2>
+          {/* Take the available space & center the content (especially the "Loading..." text) */}
+          <div className="flex-1 grid place-items-center">
 
-          {/* sorting the certifications using certification 'index' property before mapping */}
-          {(sortState(certifications) as CertificationType[])
-            .map(({ index, credentialId, icon, certificate, from, issued, certificateLink }) => (
-              <motion.div
-                className={
-                  (index === "0" ? "" : subCertificateStyle) +
-                  " group relative bg-black/5 rounded-lg flex justify-start items-center p-2 mx-0 hover:before:content-[''] hover:bg-white hover:scale-110 min-[450px]:hover:scale-125 my-2 hover:my-[-12px] hover:shadow-simpleShadow hover:z-10 transition-all duration-300 ease-linear"
-                }
-                key={credentialId}
-              >
-                <img
-                  src={urlFor(icon)}
-                  className={
-                    (index === "0" ? "size-8 bg-gray " : "size-6 ") +
-                    "group-hover:size-12 mr-4"
-                  }
-                  alt="credential logo"
-                />
-                <div>
-                  <h4
-                    className={
-                      (index === "0" ? "text-xl " : "text-base ") +
-                      "font-medium"
-                    }
-                  >
-                    {certificate}
-                  </h4>
-                  <p className="text-sm text-left text-gray leading-6 hidden group-hover:block">
-                    <span className="font-extrabold">{from}</span> -{" "}
-                    {issued} -{" "}
-                    <a
-                      href={certificateLink}
-                      className="text-secondary  cursor-pointer"
-                      target="_blank"
-                      rel="noreferrer"
+            {certifications.length > 0 ?
+              (<div className="w-full">
+                {/* sorting the certifications using certification 'index' property before mapping */}
+                {(sortState(certifications) as CertificationType[])
+                  .map(({ index, credentialId, icon, certificate, from, issued, certificateLink }) => (
+                    <motion.div
+                      className={
+                        (index === "0" ? "" : subCertificateStyle) +
+                        " group relative bg-black/5 rounded-lg flex justify-start items-center p-2 mx-0 hover:before:content-[''] hover:bg-white hover:scale-110 min-[450px]:hover:scale-125 my-2 hover:my-[-12px] hover:shadow-simpleShadow hover:z-10 transition-all duration-300 ease-linear"
+                      }
+                      key={credentialId}
                     >
-                      show
-                      <BiLinkExternal className="inline-block w-4 ml-1" />
-                    </a>
-                  </p>
-                </div>
-              </motion.div>
-            ))}
+                      <img
+                        src={urlFor(icon)}
+                        className={
+                          (index === "0" ? "size-8 bg-gray " : "size-6 ") +
+                          "group-hover:size-12 mr-4"
+                        }
+                        alt="credential logo"
+                      />
+                      <div>
+                        <h4
+                          className={
+                            (index === "0" ? "text-xl " : "text-base ") +
+                            "font-medium"
+                          }
+                        >
+                          {certificate}
+                        </h4>
+                        <p className="text-sm text-left text-gray leading-6 hidden group-hover:block">
+                          <span className="font-extrabold">{from}</span> -{" "}
+                          {issued} -{" "}
+                          <a
+                            href={certificateLink}
+                            className="text-secondary  cursor-pointer"
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            show
+                            <BiLinkExternal className="inline-block w-4 ml-1" />
+                          </a>
+                        </p>
+                      </div>
+                    </motion.div>
+                  ))}
+              </div>) : <Loading />}
+          </div>
         </div>
       </div>
     </>
@@ -201,7 +215,7 @@ const Skills = () => {
 }
 
 export default SectionWrapper(
-  MotionWrapper(Skills, "app__skills"),
+  MotionWrapper(Skills),
   "skills",
   "bg-white"
 )

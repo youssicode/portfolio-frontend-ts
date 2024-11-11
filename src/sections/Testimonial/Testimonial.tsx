@@ -5,6 +5,7 @@ import { SectionWrapper, MotionWrapper } from "../../wrappers"
 import { urlFor } from "../../helpers/client"
 import Button from "./Button"
 import { fetchSanityData } from "@/helpers/utils"
+import Loading from "@/components/Loading"
 
 type sanityTestimonialsType = {
   name: string
@@ -60,7 +61,7 @@ const Testimonial = () => {
   if (!currentTestimonial) {
     return (
       <div className={TestimonialCardClasses}>
-        <span className="text-base text-secondary">Loading...</span>
+        <Loading />
       </div>
     )
   }
@@ -105,7 +106,7 @@ const Testimonial = () => {
 }
 
 export default SectionWrapper(
-  MotionWrapper(Testimonial, "app__testimonial"),
+  MotionWrapper(Testimonial),
   "testimonials",
   "bg-primary"
 )

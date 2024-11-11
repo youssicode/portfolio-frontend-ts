@@ -3,16 +3,15 @@ import React from "react"
 import { motion } from "framer-motion"
 
 type MotionWrapperType = (
-  Component: React.FC,
-  classNames: string
+  Component: React.FC
 ) => () => JSX.Element
-const MotionWrapper: MotionWrapperType = (Component, classNames) => {
+const MotionWrapper: MotionWrapperType = (Component) => {
   function HOC() {
     return (
       <motion.div
         whileInView={{ y: [100, 50, 0], opacity: [0, 0, 1] }}
         transition={{ duration: 0.5 }}
-        className={`${classNames} flex justify-center items-center`}
+        className="flex-1 w-full flex-col flex justify-center items-center"
       >
         <Component />
       </motion.div>

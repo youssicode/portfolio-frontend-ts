@@ -6,6 +6,7 @@ import images from "@/helpers/images"
 import Intro from "./Intro"
 import SectionHeading from "@/components/SectionHeading"
 import { fetchSanityData } from "@/helpers/utils"
+import Loading from "@/components/Loading"
 
 const About = () => {
 
@@ -54,7 +55,7 @@ const About = () => {
       ></Intro>
       <div className="flex justify-center items-start flex-wrap gap-16 lg:gap-24 mt-12 lg:mt-20 mb-8">
         {abouts.length > 0 ? (
-          abouts.map(({ title, description, imgUrl }: AboutType, index: number) => (
+          abouts.map(({ title, description, imgUrl }: AboutType) => (
             <motion.div
               key={title}
               className="w-[85%] min-[450px]:w-60 flex justify-start items-center flex-col gap-4 2xl:w-[370px]"
@@ -77,7 +78,7 @@ const About = () => {
               </p>
             </motion.div>
           )
-          )) : (<span className="text-base text-secondary">Loading...</span>)
+          )) : <Loading />
         }
       </div>
 
@@ -92,7 +93,7 @@ const About = () => {
 }
 
 export default SectionWrapper(
-  MotionWrapper(About, "app__about"),
+  MotionWrapper(About),
   "about",
   "bg-white"
 )

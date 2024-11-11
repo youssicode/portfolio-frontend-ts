@@ -5,7 +5,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 * {
   box-sizing: border-box;
   padding: 0;
@@ -13,7 +12,7 @@
   scroll-behavior: smooth;
 }
 
-.app__work,
+/* .app__work,
 .app__about,
 .app__skills,
 .app__testimonial,
@@ -21,7 +20,7 @@
   flex: 1;
   width: 100%;
   flex-direction: column;
-}
+} */
 
 @media screen and (max-width: 450px) {
   html {

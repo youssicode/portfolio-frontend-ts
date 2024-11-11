@@ -122,7 +122,7 @@ const Contact = () => {
 
 
 export default SectionWrapper(
-  MotionWrapper(Contact, "app__contact"),
+  MotionWrapper(Contact),
   "contact",
   "bg-white"
 )

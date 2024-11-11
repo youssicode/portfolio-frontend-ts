@@ -6,6 +6,7 @@ import ProjectCard from "./ProjectCard"
 import Filter from "./Filter"
 import { motion } from "framer-motion"
 import { fetchSanityData } from "@/helpers/utils"
+import Loading from "@/components/Loading"
 
 type SanityWorksType = {
   title: string
@@ -91,7 +92,7 @@ function Work() {
 
       <Filter activeFilter={activeFilter} handleFilter={handleWorksFilter} />
 
-      <div className="min-h-[550px] w-full">
+      <div className="min-h-64 w-full">
         <motion.div
           animate={animateCard}
           transition={{ duration: 0.5, delayChildren: 0.5, ease: "linear" }}
@@ -104,7 +105,7 @@ function Work() {
                 key={index}
                 handleImageClick={handleImageClick}
               />
-            )) : ("Loading...")}
+            )) : <Loading />}
         </motion.div>
       </div>
 
@@ -119,7 +120,7 @@ function Work() {
 }
 
 export default SectionWrapper(
-  MotionWrapper(Work, "app__work"),
+  MotionWrapper(Work),
   "work",
   "bg-primary"
 )
