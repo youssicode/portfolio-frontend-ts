@@ -48,7 +48,7 @@ const SkillsSection = () => {
     }, []);
     return (
         <motion.div
-            className="flex-1 flex flex-wrap justify-center items-start lg:justify-start min-w-56 max-w-4xl gap-[1.7rem] min-[375px]:gap-[2.5rem]"
+            className="flex-1 flex flex-wrap justify-center items-start min-w-56 max-w-4xl gap-[1.7rem] min-[375px]:gap-[2.2rem]"
             whileInView={{ opacity: [0, 1] }}
             transition={{ delayChildren: 0.5 }}
         >

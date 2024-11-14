@@ -10,7 +10,7 @@ const Skills = () => {
     <>
       <SectionHeading text1="expertise &" text2="credentials" />
 
-      <div className="w-full lg:w-4/5 flex flex-col justify-start items-center gap-14 lg:gap-24 lg:flex-row">
+      <div className="w-full xl:w-4/5 flex flex-col justify-center items-center gap-16 lg:gap-20 lg:flex-row lg:items-start">
         <SkillsSection />
         <CertificationsSection />
       </div>
