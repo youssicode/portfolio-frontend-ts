@@ -6,6 +6,7 @@ import { urlFor } from "../../helpers/client"
 import Button from "./Button"
 import { fetchSanityData } from "@/helpers/utils"
 import Loading from "@/components/Loading"
+import SectionHeading from "@/components/SectionHeading"
 
 type sanityTestimonialsType = {
   name: string
@@ -54,7 +55,7 @@ const Testimonial = () => {
     setCurrentIndex(newIndex)
   }
 
-  const TestimonialCardClasses = "mt-8 flex flex-col md:flex-row justify-center items-center gap-4 w-full md:w-4/5 lg:w-3/5 min-h-72 bg-white p-6 rounded-xl shadow-hoverShadow transition-all duration-300 ease-in-out min-2xl:min-h-[450px]"
+  const TestimonialCardClasses = "flex flex-col md:flex-row justify-center items-center gap-4 w-full md:w-4/5 lg:w-3/5 min-h-72 bg-white p-6 rounded-xl shadow-hoverShadow transition-all duration-300 ease-in-out min-2xl:min-h-[450px]"
   const currentTestimonial = testimonials.length > 0 ? testimonials[currentIndex] : null
 
   // If the testimonials not fetched yet, show a loading message
@@ -69,6 +70,8 @@ const Testimonial = () => {
   const { name, imgurl, feedback, company }: testimonialsType = testimonials[currentIndex]
   return (
     <>
+      <SectionHeading text1="Voices of" text2="Experience" />
+
       <div className={TestimonialCardClasses}>
         <>
           <img

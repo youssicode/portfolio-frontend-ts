@@ -86,7 +86,7 @@ const Contact = () => {
     <>
       <SectionHeading text1="let's create" text2="together" />
 
-      <div className="w-full md:w-3/5 flex justify-evenly items-center flex-wrap m-8 mt-16">
+      <div className="w-full md:w-3/5 flex justify-evenly items-center flex-wrap">
         <ContactCard imgSource={images.email} altText="Email" contactInfo="youssef.el.hrouzi@gmail.com" />
         <ContactCard imgSource={images.mobile} altText="Phone" contactInfo="+212 (663) 020-777" />
       </div>

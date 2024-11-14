@@ -10,7 +10,7 @@ const Filter: React.FC<FilterProps> = ({ activeFilter, handleFilter }) => {
 
 
   return (
-    <div className="flex justify-center items-center flex-wrap gap-4 mt-16 mx-0 mb-8 cursor-pointer">
+    <div className="flex justify-center items-center flex-wrap gap-4 mx-0 mb-8 cursor-pointer">
       {projectsFilterOptions.map((item, index) => (
         <div
           onClick={() => handleFilter(item)}

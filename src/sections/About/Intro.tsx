@@ -13,7 +13,7 @@ const Intro = ({ heading, text, image }: IntroProps) => {
   }
   return (
     <div
-      className={`${heading == "Hi again" ? "mt-20 min-h-56" : "mt-12 min-h-24"} w-full xl:w-[85%] mx-auto flex items-center`}
+      className={`${heading == "Hi again" ? "min-h-56" : "mt-12 min-h-24"} w-full xl:w-[85%] mx-auto flex items-center`}
     >
       <div className="flex-[2_1]">
         <h3 className="flex justify-start  text-2xl md:text-3xl 2xl:text-4xl font-extrabold text-secondary">
